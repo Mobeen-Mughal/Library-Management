@@ -35,7 +35,6 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonlogin = new System.Windows.Forms.Button();
-            this.buttonSignup = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -45,6 +44,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.buttonSignup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -126,17 +126,6 @@
             this.buttonlogin.Text = "Login";
             this.buttonlogin.UseVisualStyleBackColor = true;
             this.buttonlogin.Click += new System.EventHandler(this.buttonlogin_Click);
-            // 
-            // buttonSignup
-            // 
-            this.buttonSignup.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSignup.Location = new System.Drawing.Point(219, 702);
-            this.buttonSignup.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.buttonSignup.Name = "buttonSignup";
-            this.buttonSignup.Size = new System.Drawing.Size(180, 71);
-            this.buttonSignup.TabIndex = 7;
-            this.buttonSignup.Text = "Sign Up";
-            this.buttonSignup.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -225,6 +214,17 @@
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
+            // buttonSignup
+            // 
+            this.buttonSignup.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSignup.Location = new System.Drawing.Point(219, 702);
+            this.buttonSignup.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonSignup.Name = "buttonSignup";
+            this.buttonSignup.Size = new System.Drawing.Size(180, 71);
+            this.buttonSignup.TabIndex = 7;
+            this.buttonSignup.Text = "Sign Up";
+            this.buttonSignup.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -248,7 +248,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -269,7 +268,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonlogin;
-        private System.Windows.Forms.Button buttonSignup;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Panel panel3;
@@ -279,6 +277,7 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button buttonSignup;
     }
 }
 

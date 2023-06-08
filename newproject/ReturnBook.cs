@@ -21,7 +21,7 @@ namespace newproject
         private void btnsearch_Click(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET  database = Librarymanagement; Integrated Security= True ";
+            con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET; database = Librarymanagement; Integrated Security= True ";
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
 
@@ -88,7 +88,7 @@ namespace newproject
             
                    
         }
-
+         
         private void txtentersid_TextChanged(object sender, EventArgs e)
         {
             if(txtentersid.Text == "")

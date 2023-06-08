@@ -52,6 +52,8 @@ namespace newproject
 
             cmd.ExecuteNonQuery();
             con.Close();
+
+            MessageBox.Show("Student added Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
     }

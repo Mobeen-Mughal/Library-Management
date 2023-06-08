@@ -36,7 +36,7 @@ namespace newproject
         private void IssueBook_Load(object sender, EventArgs e)
         {
             SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
+            con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             con.Open();
@@ -97,23 +97,24 @@ namespace newproject
 
         private void btnissue_Click(object sender, EventArgs e)
         {
-            string sname= txtsname.Text;
+
+            Int64 sid = Int64.Parse(txtstudid.Text); 
+            string sname = txtsname.Text;
             string sdepart = txtsdepart.Text;
             string scontact = txtscontact.Text;
-            Int64 sid = Int64.Parse(txtstudid.Text);
-            string saddress = txtsaddress.Text;
             Int64 contact = Int64.Parse(txtscontact.Text);
-            String bookname = comboBox1.Text;
-            String bookIssueDate = dateTimePicker3.Text;
+            string saddress = txtsaddress.Text;
+            string bookname = comboBox1.Text;
+            string bookIssueDate = dateTimePicker3.Text;
 
 
-            String edi = txtstudid.Text;
+            string edi = txtstudid.Text;
             SqlConnection con = new SqlConnection();
             con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
             con.Open();
-            cmd.CommandText = " insert into IssueBook (std_id ,std_name,std_depart,std_contact ,book_name ,book_issue_date) values (" + sid + ",'" + sname + "','" + sdepart + "'," + scontact + ",'" +bookname + "', '"+bookIssueDate+"' )";
+            cmd.CommandText = " insert into IssueBook (std_id, std_name,std_depart,std_contact ,book_name ,book_issue_date) values ("+sid+",'"+sname+"','" + sdepart + "'," + scontact + ",'" +bookname + "', '"+bookIssueDate+"' )";
             cmd.ExecuteNonQuery();
             con.Close();
 

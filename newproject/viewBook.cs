@@ -23,6 +23,7 @@ namespace newproject
 
         }
 
+
         int address;
         Int64 info;
         private void viewBook_Load(object sender, EventArgs e)
@@ -52,35 +53,48 @@ namespace newproject
 
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+
+            private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridView1.RowCount &&
+                e.ColumnIndex >= 0 && e.ColumnIndex < dataGridView1.ColumnCount)
             {
-                address = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-                //MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
+                {
+                    address = int.Parse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    //MessageBox.Show(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                }
 
+                panel2.Visible = true;
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "Data Source=DESKTOP-HQPD7LE\\PAFKIET;Database=Librarymanagement;Integrated Security=True";
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
 
+                info = Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells["bid"].Value);
+
+                cmd.CommandText = "SELECT * FROM NewBook WHERE bid = @info";
+                cmd.Parameters.AddWithValue("@info", info);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+
+                if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
+                {
+                    txtbname.Text = ds.Tables[0].Rows[0]["bName"].ToString();
+                    txtbauthorname.Text = ds.Tables[0].Rows[0]["bAuthor"].ToString();
+                    dateTimePicker1.Text = ds.Tables[0].Rows[0]["bPdate"].ToString();
+                    txtbprice.Text = ds.Tables[0].Rows[0]["bPrice"].ToString();
+                    txtbquantity.Text = ds.Tables[0].Rows[0]["bQuantity"].ToString();
+                }
             }
-            panel2.Visible = true;
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-
-            cmd.CommandText = "select  * from NewBook where bid = " + info + "";
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            da.Fill(ds);
-
-            info = Int64.Parse(ds.Tables[0].Rows[0][0].ToString());
-
-            txtbname.Text = ds.Tables[0].Rows[0][1].ToString();
-            txtbauthorname.Text = ds.Tables[0].Rows[0][2].ToString();
-            dateTimePicker1.Text = ds.Tables[0].Rows[0][3].ToString();
-            txtbprice.Text = ds.Tables[0].Rows[0][4].ToString();
-            txtbquantity.Text = ds.Tables[0].Rows[0][5].ToString();
         }
+
+   
+
+
 
         private void btncancel_Click(object sender, EventArgs e)
         {
@@ -122,50 +136,63 @@ namespace newproject
         }
 
         private void btnupdate_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Update Data.?", "Success", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
 
+
+        {
+            if (MessageBox.Show("Update Data?", "Success", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
                 string bname = txtbname.Text;
                 string bauthor = txtbauthorname.Text;
                 string bpdate = dateTimePicker1.Text;
-                Int64 price = int.Parse(txtbprice.Text);
-                Int64 bquantity = int.Parse(txtbquantity.Text);
+                Int64 price = Int64.Parse(txtbprice.Text);
+                Int64 bquantity = Int64.Parse(txtbquantity.Text);
 
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-HQPD7LE\\PAFKIET;Database=Librarymanagement;Integrated Security=True"))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
 
+                    cmd.CommandText = "UPDATE NewBook SET bName = @bname, bAuthor = @bauthor, bPdate = @bpdate, bPrice = @bprice, bQuantity = @bquantity WHERE bid = @info";
+                    cmd.Parameters.AddWithValue("@bname", bname);
+                    cmd.Parameters.AddWithValue("@bauthor", bauthor);
+                    cmd.Parameters.AddWithValue("@bpdate", bpdate);
+                    cmd.Parameters.AddWithValue("@bprice", price);
+                    cmd.Parameters.AddWithValue("@bquantity", bquantity);
+                    cmd.Parameters.AddWithValue("@info", info);
 
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
-
-                cmd.CommandText = "Update NewBook set bName = '" + bname + "',bAuthor= '" + bauthor + "',bPdate= '" + bpdate + "',bPrice = " + bpdate + ",bQuantity= " + bquantity + " where bid=" + info + " ";
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
-
+                    cmd.ExecuteNonQuery();
+                }
             }
-
         }
 
         private void btndelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Delete Data.?", "Confirmation Dialog", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-
+            if (MessageBox.Show("Delete Data?", "Confirmation Dialog", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
-                SqlConnection con = new SqlConnection();
-                con.ConnectionString = "Data Source = DESKTOP-HQPD7LE\\PAFKIET;  database = Librarymanagement; Integrated Security= True ";
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = con;
+                using (SqlConnection con = new SqlConnection("Data Source=DESKTOP-HQPD7LE\\PAFKIET;Database=Librarymanagement;Integrated Security=True"))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = con;
 
-                cmd.CommandText = "Delete  From Newbook where bid = " + info + "";
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataSet ds = new DataSet();
-                da.Fill(ds);
+                    cmd.CommandText = "DELETE FROM NewBook WHERE bid = @info";
+                    cmd.Parameters.AddWithValue("@info", info);
 
+                    cmd.ExecuteNonQuery();
 
+                }
             }
+
         }
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
     }
 }
 
